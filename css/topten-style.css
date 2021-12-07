@@ -1,0 +1,13 @@
+
+@media (min-width: 675px) {
+    body{
+        background-image: url("../img/bg.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center center;
+    }
+    .dark{
+        background-image: url("../img/dark-background..png");
+        /* background-image: none; */
+    }
+}
