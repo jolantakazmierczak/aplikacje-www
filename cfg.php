@@ -1,53 +1,20 @@
 <?php
-//$dbhost = 'localhost';
-//$dbuser = 'root';
-//$dbpass = '';
-//$baza = 'moja_strona';
-//
-//$mysqli = mysqli_connect($dbhost, $dbuser, $dbpass, $baza, 3306);
-//if (!$mysqli) echo '<b>przerwane połączenie</b>';
-//if (!mysqli_select_db($mysqli, $baza)) echo 'nie wybrano bazy';
 
-$login = 'login';
-$pass = 'pass';
+$login = 'admin';
+$password = 'admin';
 
-function getMysqli(): mysqli
-{
-    $dbhost = 'localhost';
-    $dbuser = 'root';
-    $dbpass = '';
-    $baza = 'moja_strona';
+$databaseHost = '127.0.0.1';
+$databaseName = '';
+$databaseUsername = 'root';
+$databasePassword = '';
+$port = 3306;
 
-    $mysqli = mysqli_connect($dbhost, $dbuser, $dbpass, $baza, 3306);
-    if (!$mysqli) echo '<b>przerwane połączenie</b>';
-    if (!mysqli_select_db($mysqli, $baza)) echo 'nie wybrano bazy';
+$mysqli = mysqli_connect($databaseHost, $databaseUsername, $databasePassword, '', 8091);
+mysqli_select_db($mysqli, 'moja_strona');
 
-    return $mysqli;
+if (mysqli_connect_errno()) {
+    echo "Failed to connect to MySQL: " . mysqli_connect_error();
+    exit();
 }
-
-//function getMysqli(): mysqli
-//{
-//    $dbhost = 'localhost';
-//    $dbuser = 'root';
-//    $dbpass = '';
-//    $baza = 'moja_strona';
-//
-//    $mysqli = mysqli_connect($dbhost, $dbuser, $dbpass, $baza, 3306);
-//    if (!$mysqli) echo '<b>przerwane połączenie</b>';
-//    if (!mysqli_select_db($mysqli, $baza)) echo 'nie wybrano bazy';
-//
-//    return $mysqli;
-//}
-
-//
-//$sql = "SELECT * FROM page_list";
-//
-//if ($result = $mysqli->query($sql)) {
-//    while ($row = $result->fetch_row()) {
-//        //printf("%s (%s) (%s)\n", $row[0], $row[1], $row[2]);
-//    }
-//    $result->free_result();
-//}
-
 
 ?>

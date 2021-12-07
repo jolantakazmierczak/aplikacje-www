@@ -1,23 +1,30 @@
+<?php
+error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);
+
+include_once("cfg.php");
+include_once("showpage.php");
+include_once("admin/admin.php");
+
+//fetching data in descending order (lastest entry first)
+//$result = mysql_query("SELECT * FROM users ORDER BY id DESC"); // mysql_query is deprecated
+//$result = mysqli_query($mysqli, "SELECT * FROM users ORDER BY id DESC"); // using mysqli_query instead
+?>
+
+
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link href="https://fonts.googleapis.com/css?family=Lora|Ubuntu:400,700&display=swap" rel="stylesheet"/>
-    <meta name="Author" content="Jolanta Kaźmierczak"/>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.googleapis.com/css?family=Lora|Ubuntu:400,700&display=swap" rel="stylesheet" />
+    <meta name="Author" content="Jolanta Kaźmierczak" />
     <script src="https://kit.fontawesome.com/93c216d6af.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="css/style.css" />
     <title>Moje hobby to sprawy kryminalne</title>
 </head>
 
 <body>
-<?php
-error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);
-/* po tym komentarzu będzie kod do dynamicznego ładowania stron */
-?>
-<?php include "showpage.php"; ?>
-<?php include "admin/admin.php"; ?>
 
 <header>
     <div class="navbar container-flex">
@@ -45,59 +52,13 @@ error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);
 </header>
 <div class="content">
 
-
     <?php
-
-    printf(formularzLogowania());
-
-    printf(edytujPodstrone());
-
-    if (!empty($_POST['login']) && !empty($_POST['password'])) {
-
-        if ($_POST['login'] === 'admin' && $_POST['password'] === 'admin') {
-            $_SESSION['valid'] = true;
-            $_SESSION['timeout'] = time();
-            $_SESSION['username'] = $_POST['login'];
-
-            //echo 'OK';
-
-            listaPodstrong();
-        }
-
-        else {
-            echo 'Wrong username or password';
-        }
-    }
-
-
-
-
-
-    //    if (isset($_POST['login']) && !empty($_POST['password'])
-    //        && !empty($_POST['password'])) {
-    //
-    //        if ($_POST['username'] == 'tutorialspoint' &&
-    //            $_POST['password'] == '1234') {
-    //            $_SESSION['valid'] = true;
-    //            $_SESSION['timeout'] = time();
-    //            $_SESSION['username'] = 'tutorialspoint';
-    //
-    //            echo 'You have entered valid use name and password';
-    //        }else {
-    //            $msg = 'Wrong username or password';
-    //        }
-    //    }
-
-
-    $strona = $_GET['strona'];
-
-
-    if (empty($strona)) {
-        $strona = 'glowna';
-    } else {
-        //printf(PokazPodstrone($strona));
-    }
-
+    session_start();
+    formularzLogowania();
+    EdytujPodstrone();
+    ListPodstron();
+    UsunPodstrone();
+    pokazPodstrone(empty($_GET['strona']) ? 'glowna' : $_GET['strona']);
     ?>
 
 </div>
@@ -112,13 +73,13 @@ error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);
 <script src="js/kolorujtlo.js"></script>
 <script src="js/changesize.js"></script>
 <script>
-    $("#animacjaTestowa1").on("click", function () {
-        $(this).animate({
-            width: "600px",
-            opacity: 0.4,
-            fontSize: "5em"
-        }, 1500)
-    });
+$('#animacjaTestowa1').on('click', function() {
+    $(this).animate({
+        width: '600px',
+        opacity: 0.4,
+        fontSize: '5em'
+    }, 1500)
+})
 </script>
 
 
