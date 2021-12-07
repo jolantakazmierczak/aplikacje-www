@@ -63,7 +63,9 @@ function EdytujPodstrone()
 //selecting data associated with this particular id
     $result = mysqli_query($mysqli, "SELECT * FROM page_list WHERE id=$id");
 
-    while($res = mysqli_fetch_array($result)) {
+
+
+    while($result && $res = mysqli_fetch_array($result)) {
         $title = $res['page_title'] ?? '';
         $content = $res['page_content'] ?? '';
         $status = $res['status'] ?? '';

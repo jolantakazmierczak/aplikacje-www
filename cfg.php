@@ -9,7 +9,7 @@ $databaseUsername = 'root';
 $databasePassword = '';
 $port = 3306;
 
-$mysqli = mysqli_connect($databaseHost, $databaseUsername, $databasePassword, '', 8091);
+$mysqli = mysqli_connect($databaseHost, $databaseUsername, $databasePassword, '', $port);
 mysqli_select_db($mysqli, 'moja_strona');
 
 if (mysqli_connect_errno()) {
