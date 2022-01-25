@@ -12,8 +12,9 @@ function UsunPodstrone()
     if(isset($_GET['delete_id'])) {
         $deleteId = $_GET['delete_id'];
         $result = mysqli_query($mysqli, "DELETE FROM page_list WHERE id=$deleteId LIMIT 1");
-        //header("Location: index.php");
-    }
+        echo '<script type="text/javascript">
+           window.location = "index.php?strona=administracja"
+      </script>';    }
 }
 
 //
@@ -62,8 +63,10 @@ function EdytujPodstrone()
 
             //redirectig to the display page. In our case, it is index.php
             //header("Location: index.php");
-            echo "<meta http-equiv=\"refresh\" content=\"0;URL=index.php?strona=administracja\">";
-        }
+
+            echo '<script type="text/javascript">
+           window.location = "index.php?strona=administracja"
+      </script>';        }
     }
 
     $id = $_GET['id'];
@@ -109,7 +112,6 @@ function EdytujPodstrone()
     echo '</tr>';
     echo '</table>';
     echo '</form>';
-    echo '<hr>';
 //
 
 }
@@ -122,12 +124,12 @@ function ListPodstron()
 
     global $mysqli;
 
-    $result = mysqli_query($mysqli, "SELECT * FROM page_list ORDER BY id DESC LIMIT 100");
+    $result = mysqli_query($mysqli, "SELECT * FROM page_list ORDER BY id ASC LIMIT 100");
 
     $start = '<div style="text-align: center"><div>
         <h3 style="text-decoration:underline;">Zarządzaj podstronami</h3>
-        <a href="?strona=administracja&id=0">Dodaj</a><br/><br/>
-        <table width="80%" style="margin: 0 auto; border:1px solid;text-align:center">
+        <a href="?strona=administracja&showPageSection&id=0">Dodaj</a><br/><br/>
+        <table width="80%" style="margin: 0 auto; " class="tab">
         <tr style="background-color:#9E0101;color: #f8f8f8;font-weight: bold;">
             <td>Id</td>
             <td>Tytuł</td>
@@ -142,7 +144,7 @@ function ListPodstron()
         $content .= "<td>" . $res['id'] . "</td>";
         $content .= "<td>" . $res['page_title'] . "</td>";
         $content .= "<td>" . $res['status'] . "</td>";
-        $content .= "<td><a href=\"?strona=administracja&id=$res[id]\">Edytuj</a> | <a href=\"?strona=administracja&delete_id=$res[id]\" onClick=\"return confirm('Czy na pewno usunąć ?')\">Usuń</a></td>";
+        $content .= "<td><a href=\"?strona=administracja&id=$res[id]&showPageSection=true\">Edytuj</a> | <a href=\"?strona=administracja&delete_id=$res[id]\" onClick=\"return confirm('Czy na pewno usunąć ?')\">Usuń</a></td>";
     }
 
     echo $start . $content . $end;
@@ -167,7 +169,7 @@ function formularzLogowania()
             $_SESSION['timeout'] = time();
             $_SESSION['username'] = 'tutorialspoint';
 
-            var_dump($_SESSION);
+//            var_dump($_SESSION);
 
             echo 'Poprawnie się zalogowano';
         }

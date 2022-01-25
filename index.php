@@ -5,7 +5,10 @@ include_once("cfg.php");
 include_once("showpage.php");
 include_once("admin/admin.php");
 include_once("admin/categories.php");
+include_once("admin/products.php");
 include_once("contact.php");
+include_once("admin/shop.php");
+include_once("admin/cart.php");
 
 //fetching data in descending order (lastest entry first)
 //$result = mysql_query("SELECT * FROM users ORDER BY id DESC"); // mysql_query is deprecated
@@ -60,24 +63,49 @@ include_once("contact.php");
     session_start();
     formularzLogowania();
 
+
     if(isset($_GET['strona']) && $_GET['strona'] === 'administracja') {
-        EdytujPodstrone();
         ListPodstron();
         UsunPodstrone();
+        if (isset($_GET['showPageSection'])) {
+            EdytujPodstrone();
+        }
+
     }
 
 
 
     pokazPodstrone(empty($_GET['strona']) ? 'glowna' : $_GET['strona']);
 
-       if(isset($_GET['strona']) && $_GET['strona'] === 'administracja') {
-             PokazKontakt();
-             ListaKategorii();
-              EdytujKategorie();
-            UsunKategorie();
+    if (isset($_GET['strona']) && $_GET['strona'] === 'administracja') {
+        ListaKategorii();
+        UsunKategorie();
+        if (isset($_GET['showCategorySection'])) {
+            EdytujKategorie();
+        }
+
+
     }
 
 
+    if(isset($_GET['strona']) && $_GET['strona'] === 'administracja') {
+        ListaProdukt();
+        UsunProdukt();
+
+        if (isset($_GET['showProductSection'])) {
+            EdytujProdukt();
+        }
+
+    }
+
+    if(isset($_GET['strona']) && $_GET['strona'] === 'sklep') {
+        cartTemplate();
+        template();
+        addToCart();
+        deleteFromCart();
+        buyFromCart();
+        statusChange();
+    }
     ?>
 
 </div>

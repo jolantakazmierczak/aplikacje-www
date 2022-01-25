@@ -102,7 +102,7 @@ strong {
     margin: 0 auto;
 }
 .container {
-    width: 90%;
+    /*width: 90%;*/
     max-width: 900px;
     margin: 0 auto;
 }
@@ -494,31 +494,102 @@ button {
     padding: 3rem;
 }
 
-.shop{
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    align-content: center;
-    justify-content: space-between;
-}
-.category{
-    display: flex;
-    flex-direction: column;
-    width: 70%;
-}
 
-.shop a{
-    text-decoration: none;
-}
-
-.category-list{
-    width: 100%;
-    justify-content: space-between;
-    display: flex;
-    flex-direction: row;
-    border-bottom: 1px solid #C30101;
-}
 
 footer{
     margin-top: 3rem;
+}
+
+.tab td{
+    border: 1px solid black;
+    text-align: center;
+}
+
+.tab{
+    border-collapse: collapse;
+}
+
+td{
+    padding: 0.25rem;
+}
+
+.tab tr:hover {
+    background-color: #9E0101;
+    color: #f8f8f8;
+}
+
+
+
+/*sklep*/
+
+.shop{
+    /*text-align: center;*/
+margin: 1rem 5rem 1rem 5rem;
+
+}
+
+.title{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: .5rem;
+    border-bottom: 1px solid #7a7676;
+
+}
+.shop button{
+    background: none;
+    border: none;
+    width: auto;
+    color: #9E0101;
+
+}
+
+.shop-content{
+    display: flex;
+    flex-direction: row;
+}
+.categories{
+    width: 15%;
+    padding: 1rem;
+    border-right: 1px solid #7a7676;
+}
+
+.products{
+    padding: 1rem;
+    width: 85%;
+
+}
+
+.products table {
+    width: 100%;
+}
+
+.products td{
+    border-bottom: 1px solid #7a7676;
+    padding: .5rem;
+}
+
+/*temporary*/
+
+.cart{
+    padding: 1rem 5rem 1rem 5rem;
+    border-bottom: 1px solid #707070;
+    width: auto;
+    justify-content: center;
+}
+
+.cart th{
+    background: #9E0101;
+    color: #f8f8f8;
+}
+.cart td{
+    border-bottom: 1px solid #707070;
+}
+
+.buy{
+    border: 1px solid #9E0101;
+    background: #9E0101;
+    color: #f8f8f8;
+    padding: .5rem;
+    border-radius: .25rem;
 }
