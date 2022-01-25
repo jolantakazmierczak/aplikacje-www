@@ -1,0 +1,140 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link href="https://fonts.googleapis.com/css?family=Lora|Ubuntu:400,700&display=swap" rel="stylesheet"/>
+    <meta name="Author" content="Jolanta Kaźmierczak"/>
+    <script src="https://kit.fontawesome.com/93c216d6af.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/style.css"/>
+    <title>Moje hobby to sprawy kryminalne</title>
+</head>
+
+<body>
+
+<header>
+    <div class="navbar container-flex">
+        <div class="site-title">
+            <h1>Historie kryminalne</h1>
+            <p class="subtitle">Najciekawsze sprawy kryminalne</p>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="?strona=glowna" class="current-page"> Start</a></li>
+                <li><a href="?strona=articles">Artykuły</a></li>
+                <li><a href="?strona=women-murderers">Kobiety zbrodni</a></li>
+                <li><a href="?strona=top-ten">TOP 5 Morderców</a></li>
+                <li><a href="?strona=filmy">Filmy</a></li>
+                <li><a href="?strona=sklep">Sklep</a></li>
+                <li><a href="?strona=administracja">Administracja</a></li>
+                <li class="tooltip">
+                    <a href="?strona=contact"><i class="fas fa-comments"></i></a>
+                    <span class="tooltiptext">Kontakt</span>
+                </li>
+            </ul>
+        </nav>
+        <div class="dark-mode">
+            <i title="Tryb ciemny" class="fas fa-moon"></i>
+        </div>
+    </div>
+</header>
+<div class="content">
+    <div class="cart">
+        <h2>Koszyk <i class="fas fa-shopping-cart"></i></h2>
+        <div class="cart-content" >
+            <table style="width: 100%; padding: .5rem; text-align: center;">
+                <tr>
+                    <th></th>
+                    <th>Nazwa</th>
+                    <th>Opis</th>
+                    <th>Ilosc</th>
+                    <th>Cena</th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <td><img src="uploads/ar7knZwOH5.webp" alt="" width="150px"></td>
+                    <td>koszulka CAT</td>
+                    <td>Stylowa koszulka wykonana z bawełny. okrągły dekolt krótkie rękawy nadruk z przodu </td>
+                    <td>
+                        <input type="number" name="" id="" value="1" style="width: 3rem">
+                    </td>
+                    <td>35zł</td>
+                    <td>
+                        <a href="" title="usuń"><i class="fas fa-minus fa-lg"></i></a>
+                </tr>
+            </table>
+            <h3>Do zapłaty:</h3>
+        </div>
+        <button type="submit" name="buy" style="width: 4rem;">Kup</button>
+    </div>
+
+
+    <div class="shop">
+
+        <div class="title">
+            <h1> </h1>
+            <h1>SKLEP</h1>
+            <button title="koszyk"> <i class="fas fa-shopping-cart fa-2x"></i></button>
+        </div>
+
+        <div class="shop-content">
+            <div class="categories">
+                <h3>Kategorie</h3>
+                <ul>
+                    <li>ubrania</li>
+                    <ul>
+                        <li><button>koszulki</button></li>
+                        <li><button>bluzy</button></li>
+                        <li><button>longsleeve</button></li>
+                    </ul>
+                    <li>dodatki</li>
+                        <ul>
+                            <li><button>biżuteria</button></li>
+                            <li><button>portfele</button></li>
+                        </ul>
+                </ul>
+            </div>
+            <div class="products">
+                <h3>Produkty</h3>
+                <table class="products-list">
+                    <tr>
+                        <th></th>
+                        <th>Nazwa</th>
+                        <th>Opis</th>
+                        <th>Ilosc</th>
+                        <th>Cena</th>
+                        <th></th>
+                    </tr>
+                    <tr>
+                        <td><img src="uploads/ar7knZwOH5.webp" alt="" width="150px"></td>
+                        <td>koszulka CAT</td>
+                        <td>Stylowa koszulka wykonana z bawełny. okrągły dekolt krótkie rękawy nadruk z przodu </td>
+                        <td>200</td>
+                        <td>35zł</td>
+                        <td><button title="Dodaj do koszyka"><i class="fas fa-cart-plus fa-lg"></i></button></td>
+                    </tr>
+                </table>
+
+
+            </div>
+        </div>
+
+    </div>
+
+
+</div>
+
+<footer>
+    <p><strong>Historie kryminalne</strong></p>
+    <?php include 'test.php'; ?>
+    <div id="clock" class="date"></div>
+    <div id="date" class="date"></div>
+</footer>
+<script src="js/timedate.js"></script>
+<script src="js/kolorujtlo.js"></script>
+<script src="js/changesize.js"></script>
+
+</body>
+
+</html>
