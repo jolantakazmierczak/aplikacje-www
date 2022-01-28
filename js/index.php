@@ -1,0 +1,132 @@
+<?php
+error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);
+
+include_once("cfg.php");
+include_once("showpage.php");
+include_once("admin/admin.php");
+include_once("admin/categories.php");
+include_once("admin/products.php");
+include_once("contact.php");
+include_once("admin/shop.php");
+include_once("admin/cart.php");
+
+//fetching data in descending order (lastest entry first)
+//$result = mysql_query("SELECT * FROM users ORDER BY id DESC"); // mysql_query is deprecated
+//$result = mysqli_query($mysqli, "SELECT * FROM users ORDER BY id DESC"); // using mysqli_query instead
+?>
+
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link href="https://fonts.googleapis.com/css?family=Lora|Ubuntu:400,700&display=swap" rel="stylesheet"/>
+    <meta name="Author" content="Jolanta Kaźmierczak"/>
+    <script src="https://kit.fontawesome.com/93c216d6af.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/style.css"/>
+    <title>Moje hobby to sprawy kryminalne</title>
+</head>
+
+<body>
+
+<header>
+    <div class="navbar container-flex">
+        <div class="site-title">
+            <h1>Historie kryminalne</h1>
+            <p class="subtitle">Najciekawsze sprawy kryminalne</p>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="?strona=glowna" class="current-page"> Start</a></li>
+                <li><a href="?strona=articles">Artykuły</a></li>
+                <li><a href="?strona=women-murderers">Kobiety zbrodni</a></li>
+                <li><a href="?strona=top-ten">TOP 5 Morderców</a></li>
+                <li><a href="?strona=filmy">Filmy</a></li>
+                <li><a href="?strona=sklep">Sklep</a></li>
+                <li><a href="?strona=administracja">Administracja</a></li>
+                <li class="tooltip">
+                    <a href="?strona=contact"><i class="fas fa-comments"></i></a>
+                    <span class="tooltiptext">Kontakt</span>
+                </li>
+            </ul>
+        </nav>
+        <div class="dark-mode">
+            <i title="Tryb ciemny" class="fas fa-moon"></i>
+        </div>
+    </div>
+</header>
+<div class="content">
+
+    <?php
+    session_start();
+    formularzLogowania();
+
+
+    if(isset($_GET['strona']) && $_GET['strona'] === 'administracja') {
+        ListPodstron();
+        UsunPodstrone();
+        if (isset($_GET['showPageSection'])) {
+            EdytujPodstrone();
+        }
+
+    }
+
+
+
+    pokazPodstrone(empty($_GET['strona']) ? 'glowna' : $_GET['strona']);
+
+    if (isset($_GET['strona']) && $_GET['strona'] === 'administracja') {
+        ListaKategorii();
+        UsunKategorie();
+        if (isset($_GET['showCategorySection'])) {
+            EdytujKategorie();
+        }
+
+
+    }
+
+
+    if(isset($_GET['strona']) && $_GET['strona'] === 'administracja') {
+        ListaProdukt();
+        UsunProdukt();
+
+        if (isset($_GET['showProductSection'])) {
+            EdytujProdukt();
+        }
+
+    }
+
+    if(isset($_GET['strona']) && $_GET['strona'] === 'sklep') {
+        template();
+        addToCart();
+        statusChange();
+
+    }
+
+    if(isset($_GET['strona']) && $_GET['strona'] === 'cart') {
+        cartTemplate();
+        addToCart();
+        buyFromCart();
+        statusChange();
+        minusCart();
+        deleteFromCart();
+    }
+    ?>
+
+</div>
+
+<footer>
+    <p><strong>Historie kryminalne</strong></p>
+    <?php include 'test.php'; ?>
+    <div id="clock" class="date"></div>
+    <div id="date" class="date"></div>
+</footer>
+<script src="js/timedate.js"></script>
+<script src="js/kolorujtlo.js"></script>
+<script src="js/changesize.js"></script>
+
+</body>
+
+</html>

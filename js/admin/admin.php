@@ -1,0 +1,199 @@
+<?php
+
+
+//Usuwa podstrone z bazy danych
+function UsunPodstrone()
+{
+    if(isUserLogged() === false) {
+        return;
+    }
+
+    global $mysqli;
+    if(isset($_GET['delete_id'])) {
+        $deleteId = $_GET['delete_id'];
+        $result = mysqli_query($mysqli, "DELETE FROM page_list WHERE id=$deleteId LIMIT 1");
+        echo '<script type="text/javascript">
+           window.location = "index.php?strona=administracja"
+      </script>';    }
+}
+
+// edycja podstrony
+function EdytujPodstrone()
+{
+    if(isUserLogged() === false) {
+        return;
+    }
+
+    if(isset($_GET['showCategory'])) {
+        return;
+    }
+
+
+    global $mysqli;
+    if(isset($_POST['update'])) {
+        $id = htmlspecialchars($_POST['id']);
+        $title = htmlspecialchars($_POST['title']);
+        $content = htmlspecialchars($_POST['content']);
+        $status = htmlspecialchars($_POST['status']);
+
+        // checking empty fields
+        if(empty($title) || empty($content)) {
+            if(empty($title)) {
+                echo "<font color='red'>Tytuł jest wymagany</font><br/>";
+            }
+
+            if(empty($content)) {
+                echo "<font color='red'>Zawartość jest wymagana</font><br/>";
+            }
+        }
+        else {
+            if(isset($_POST['status'])) {
+                $status = '1';
+            }
+            else {
+                $status = '0';
+            }
+
+            if($id == 0) {
+                $result = mysqli_query($mysqli, "INSERT INTO page_list (page_title, page_content, status) VALUES ($title, $content, $status)");
+
+            }
+            else {
+                $result = mysqli_query($mysqli, "UPDATE page_list SET page_title='$title',page_content='$content',status='$status' WHERE id=$id LIMIT 1");
+            }
+
+            echo '<script type="text/javascript">
+           window.location = "index.php?strona=administracja"
+      </script>';        }
+    }
+
+    $id = $_GET['id'];
+
+//selecting data associated with this particular id
+    $result = mysqli_query($mysqli, "SELECT * FROM page_list WHERE id=$id");
+
+
+
+    while($result && $res = mysqli_fetch_array($result)) {
+        $title = $res['page_title'] ?? '';
+        $content = $res['page_content'] ?? '';
+        $status = $res['status'] ?? '';
+    }
+
+    if($id === null) {
+        return;
+    }
+
+//formularz edycji/dodawania podstrony
+
+    echo '<a href="index.php?strona=administracja">Powrót</a>';
+    echo '<form name="form1" method="post" action="?strona=administracja">';
+    echo '<table border="0">';
+    echo '<tr>';
+    echo '<td>Tytuł</td>';
+    echo '<td><input type="text" name="title" value="' . $title . '"></td>';
+    echo '</tr>';
+    echo '<tr>';
+    echo '<td>Zawartość</td>';
+    echo '<td><textarea type="text" name="content" rows="10"  cols="100">' . $content . '</textarea></td>';
+    echo '</tr>';
+    echo '<tr>';
+    echo '<td>Status</td>';
+    if($status == 1) {
+        echo '<td><input type="checkbox" name="status" value="' . $status . '" checked="checked"></td>';
+    }
+    else {
+        echo '<td><input type="checkbox" name="status" value="' . $status . '"></td>';
+    }
+    echo '</tr>';
+    echo '<tr>';
+    echo '<td><input type="hidden" name="id" value="' . $_GET['id'] . '"</td>';
+    echo '<td><button type="submit" name="update">Zapisz</button></td>';
+    echo '</tr>';
+    echo '</table>';
+    echo '</form>';
+
+
+}
+
+//wyświetlenie listy podstron z bazy danych
+function ListPodstron()
+{
+    if(isUserLogged() === false) {
+        return;
+    }
+
+    global $mysqli;
+
+    $result = mysqli_query($mysqli, "SELECT * FROM page_list ORDER BY id ASC LIMIT 100");
+
+    $start = '<div style="text-align: center"><div>
+        <h3 style="text-decoration:underline;">Zarządzaj podstronami</h3>
+        <a href="?strona=administracja&showPageSection&id=0">Dodaj</a><br/><br/>
+        <table width="80%" style="margin: 0 auto; " class="tab">
+        <tr style="background-color:#9E0101;color: #f8f8f8;font-weight: bold;">
+            <td>Id</td>
+            <td>Tytuł</td>
+            <td>Status</td>
+            <td>Opcje</td>
+        </tr>';
+    $end = '</table></div></div>';
+
+    $content = '';
+    while($res = mysqli_fetch_array($result)) {
+        $content .= "<tr>";
+        $content .= "<td>" . $res['id'] . "</td>";
+        $content .= "<td>" . $res['page_title'] . "</td>";
+        $content .= "<td>" . $res['status'] . "</td>";
+        $content .= "<td><a href=\"?strona=administracja&id=$res[id]&showPageSection=true\">Edytuj</a> | <a href=\"?strona=administracja&delete_id=$res[id]\" onClick=\"return confirm('Czy na pewno usunąć ?')\">Usuń</a></td>";
+    }
+
+    echo $start . $content . $end;
+}
+
+//funkcja sprawdzająca czy użytkownik jest zalogowany
+function isUserLogged() {
+    return isset($_SESSION) && $_SESSION['valid'] === true;
+}
+
+//formularz logowania
+function formularzLogowania()
+{
+    if(isUserLogged()) {
+        return;
+    }
+
+    global $login;
+    global $password;
+
+    if(!empty($_POST['login']) && !empty($_POST['password'])) {
+        if($_POST['login'] == $login && $_POST['password'] == $password) {
+            $_SESSION['valid'] = true;
+            $_SESSION['timeout'] = time();
+            $_SESSION['username'] = 'tutorialspoint';
+
+//            var_dump($_SESSION);
+
+            echo 'Poprawnie się zalogowano';
+        }
+        else {
+            echo 'Zła nazwa użytkownika i hasło';
+        }
+    }
+
+    echo '
+        <div>
+         <form action="' . $_SERVER['REQUEST_URI'] . '" method="post" ENCTYPE="multipart/form-data">
+
+  <div class="container">
+    <label for="uname"><b>Username</b></label>
+    <input type="text" placeholder="Enter Username" name="login" required>
+    <label for="psw"><b>Password</b></label>
+    <input type="password" placeholder="Enter Password" name="password" required>
+    <button type="submit">Login</button>
+  </div>
+
+</form>
+</div>
+        ';
+}
